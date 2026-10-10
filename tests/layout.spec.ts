@@ -62,12 +62,26 @@ test.describe("layout responsivo", () => {
 });
 
 test.describe("hero y barra inferior móvil", () => {
-  test("el CTA principal se ve sin scroll en 360×640", async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 640 });
-    await page.goto("/");
-    const cta = page.locator("#hero-title ~ div a[data-booking]").first();
-    await expect(cta).toBeInViewport({ ratio: 1 });
-  });
+  for (const [width, height] of [
+    [390, 664],
+    [360, 640],
+    [360, 600],
+    [320, 568],
+  ] as const) {
+    test(`el CTA principal se ve completo sin scroll en ${width}×${height}`, async ({ page }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.setViewportSize({ width, height });
+      await page.goto("/");
+      const cta = page.locator("#hero-title ~ div a[data-booking]").first();
+      await expect(cta).toBeInViewport({ ratio: 1 });
+      const box = await cta.boundingBox();
+      expect(box && box.y + box.height).toBeLessThanOrEqual(height);
+      // El chip de horario sigue sobre la imagen y no tapa el título.
+      const chip = await page.locator("[data-today-chip]").boundingBox();
+      const title = await page.locator("#hero-title").boundingBox();
+      expect(chip && title && chip.y + chip.height).toBeLessThanOrEqual(title?.y ?? 0);
+    });
+  }
 
   test("la barra aparece tras el hero y se oculta en el footer", async ({ page, isMobile }) => {
     test.skip(!isMobile, "solo < 768px");

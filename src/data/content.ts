@@ -24,8 +24,11 @@ export const home = {
     primaryCta: "Reservar cita",
     secondaryCta: { href: "/servicios", label: "Ver servicios" },
     chips: ["Zona Costera, Mazatlán", "Cita por WhatsApp", "Abierto los 7 días"],
-    /** Chip sobre la foto: "Abierto hoy · 9:00 – 19:00" (se calcula en el navegador). */
-    today: { open: "Abierto hoy", closed: "Hoy no abrimos", pending: "Horario de hoy" },
+    /**
+     * Chip sobre la foto, mismo cálculo que "Abierto ahora" del CTA final.
+     * Abierto: "{hora}" = hora de cierre. Cerrado: usa el texto del util ("Abre mañana a las 9:00").
+     */
+    today: { open: "Abierto ahora · hasta {hora}", pending: "Horario de hoy" },
   },
   services: {
     title: "Para *empezar*",

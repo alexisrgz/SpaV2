@@ -25,8 +25,9 @@ function TrustChips({ chips, className }: { chips: readonly string[]; className?
 }
 
 /**
- * Hero a 100svh. Móvil: foto en HOJA a todo el ancho útil (4:3, con tope de alto
- * para que el CTA se vea sin scroll en 360×640) y el texto debajo.
+ * Hero a 100svh. Móvil: foto en HOJA a todo el ancho útil (16:10, con tope de alto)
+ * y el texto debajo. En pantallas bajas (≤ 640 px de alto) el CTA sube sobre el
+ * subtítulo para verse siempre sin scroll (probado en 320×568, 360×600 y 390×664).
  * Desktop: composición asimétrica, texto 7/12 y foto vertical 5/12.
  */
 export function Hero({ copy }: HeroProps) {
@@ -45,7 +46,7 @@ export function Hero({ copy }: HeroProps) {
             shape="leaf"
             ratio="auto"
             sizes="(min-width: 1024px) 36vw, 92vw"
-            className="hero-photo aspect-[4/3] max-h-[max(7rem,min(30svh,calc(100svh-30.5rem)))] w-full shadow-lift md:max-h-[44svh] lg:mx-auto lg:aspect-[4/5] lg:h-[min(78svh,44rem)] lg:max-h-none lg:w-auto lg:max-w-full"
+            className="hero-photo aspect-[16/10] max-h-[max(7rem,min(210px,calc(100svh-29rem)))] w-full shadow-lift md:aspect-[4/3] md:max-h-[44svh] lg:mx-auto lg:aspect-[4/5] lg:h-[min(78svh,44rem)] lg:max-h-none lg:w-auto lg:max-w-full"
           />
           <TodayChip
             labels={copy.today}
@@ -58,17 +59,17 @@ export function Hero({ copy }: HeroProps) {
           <h1 id="hero-title" className="text-h1 max-w-[13ch] lg:max-w-[12ch]" style={stagger(0)}>
             <Emphasis text={copy.title} />
           </h1>
-          <p className="text-lead max-w-[46ch] text-muted" style={stagger(1)}>
+          <p className="text-lead max-w-[46ch] text-muted short:order-2" style={stagger(1)}>
             {copy.subtitle}
           </p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-6" style={stagger(2)}>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 short:order-1 sm:gap-x-6" style={stagger(2)}>
             <BookingLink>{copy.primaryCta}</BookingLink>
             <Link href={copy.secondaryCta.href} className="link-arrow">
               {copy.secondaryCta.label}
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
-          <TrustChips chips={copy.chips} className="flex flex-wrap gap-2" />
+          <TrustChips chips={copy.chips} className="flex flex-wrap gap-2 short:order-3" />
         </div>
       </div>
     </section>

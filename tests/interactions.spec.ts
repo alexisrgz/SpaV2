@@ -79,6 +79,48 @@ test.describe("acordeón y carrusel", () => {
   });
 });
 
+test.describe("chip de horario del hero (hora simulada, America/Mazatlan = UTC−7)", () => {
+  const cases = [
+    {
+      name: "abierto",
+      // Miércoles 14 oct 2026, 12:00 en Mazatlán
+      time: "2026-10-14T19:00:00Z",
+      chip: "Abierto ahora · hasta 19:00",
+      card: /Abierto ahora/,
+      open: "true",
+    },
+    {
+      name: "cerrado antes de abrir",
+      // Miércoles 14 oct 2026, 7:30 en Mazatlán
+      time: "2026-10-14T14:30:00Z",
+      chip: "Abre hoy a las 9:00",
+      card: /Cerrado/,
+      open: "false",
+    },
+    {
+      name: "cerrado de noche",
+      // Miércoles 14 oct 2026, 21:00 en Mazatlán
+      time: "2026-10-15T04:00:00Z",
+      chip: "Abre mañana a las 9:00",
+      card: /Cerrado/,
+      open: "false",
+    },
+  ] as const;
+
+  for (const c of cases) {
+    test(`${c.name}: chip y tarjeta del CTA final coinciden`, async ({ page }) => {
+      await page.clock.setFixedTime(new Date(c.time));
+      await page.goto("/");
+      const chip = page.locator("[data-today-chip]");
+      await expect(chip).toHaveText(c.chip);
+      await expect(chip).toHaveAttribute("data-open", c.open);
+      const card = page.locator('section[aria-labelledby="cta-final-title"]');
+      await expect(card.getByText(c.card)).toBeVisible();
+      if (c.open === "false") await expect(chip).not.toContainText("Abierto");
+    });
+  }
+});
+
 test.describe("horario", () => {
   test("muestra estado abierto/cerrado calculado en el cliente", async ({ page }) => {
     await page.goto("/contacto");

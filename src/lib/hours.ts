@@ -17,6 +17,8 @@ export type OpenStatus = {
   label: string;
   /** Complemento: "Hasta las 19:00", "Abre mañana a las 9:00"… */
   detail: string;
+  /** Hora de cierre de hoy ("19:00") cuando está abierto. */
+  closesAt?: string;
   /** Día de la semana en la zona horaria del negocio. */
   today: Weekday;
 };
@@ -61,6 +63,7 @@ export function getOpenStatus(date: Date, hours: readonly OpeningHours[] = site.
         isOpen: true,
         label: closes - minutes <= 60 ? "Cierra pronto" : "Abierto ahora",
         detail: `Hasta las ${formatTime(today.closes)}`,
+        closesAt: formatTime(today.closes),
         today: weekday,
       };
     }
@@ -79,11 +82,6 @@ export function getOpenStatus(date: Date, hours: readonly OpeningHours[] = site.
   }
 
   return { isOpen: false, label: "Cerrado", detail: "Consulta disponibilidad por WhatsApp", today: weekday };
-}
-
-/** Horario del día de hoy en la zona horaria del negocio (undefined si cierra). */
-export function todayHours(date: Date, hours: readonly OpeningHours[] = site.hours): OpeningHours | undefined {
-  return hoursFor(zonedNow(date).weekday, hours);
 }
 
 /** Texto compacto de horario para chips y meta: "Lun – Vie 9:00 – 19:00 · …". */
