@@ -100,7 +100,7 @@ export function GalleryGrid({ items, categories, copy }: GalleryGridProps) {
             >
               <PhotoFrame
                 photo={item.photo}
-                shape="rounded"
+                shape="card"
                 sizes="(min-width: 1024px) 290px, (min-width: 768px) 31vw, 46vw"
                 mediaClassName="zoom-media"
                 alt=""
@@ -145,7 +145,7 @@ export function GalleryGrid({ items, categories, copy }: GalleryGridProps) {
               >
                 <PhotoFrame
                   photo={item.photo}
-                  shape="rounded"
+                  shape="card"
                   sizes="(min-width: 1024px) 70vw, 100vw"
                   className="max-w-full"
                   style={{ width: `min(100%, calc(68dvh * ${ratioValue(item.photo.ratio)}))` }}

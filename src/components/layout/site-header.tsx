@@ -59,7 +59,7 @@ export function SiteHeader() {
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "absolute bottom-1.5 left-1/2 h-1.5 w-3 -translate-x-1/2 rounded-t-full bg-support-ink transition-[opacity,scale] duration-300 ease-out-soft",
+                        "absolute bottom-1.5 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-support-ink transition-[opacity,scale] duration-300 ease-out-soft",
                         active ? "opacity-100" : "scale-50 opacity-0",
                       )}
                     />

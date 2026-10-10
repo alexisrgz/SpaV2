@@ -20,7 +20,7 @@ type ServiceCardProps = {
   className?: string;
 };
 
-/** Tarjeta de servicio: foto en arco, nombre, duración, "desde $X" y enlace al detalle. */
+/** Tarjeta de servicio: foto TARJETA 4:5 con duración y "desde $X" encima, nombre y enlace al detalle. */
 export function ServiceCard({ service, sizes, variant = "compact", headingLevel = "h3", className }: ServiceCardProps) {
   const Heading = headingLevel;
   const href = `/servicios/${service.slug}`;
@@ -28,17 +28,18 @@ export function ServiceCard({ service, sizes, variant = "compact", headingLevel 
 
   return (
     <article className={cn("group relative flex w-full flex-col", className)}>
-      <Photo
-        id={service.image}
-        shape="arch"
-        sizes={sizes}
-        frameClassName="shadow-soft"
-        mediaClassName="zoom-media"
-      />
-      <div className="flex flex-1 flex-col pt-5">
-        <p className="label text-support-ink">
-          {categoryLabel(service.category)} · <span className="tabular">{serviceDurations(service)}</span>
+      <div className="relative">
+        <Photo id={service.image} shape="card" ratio="4/5" sizes={sizes} className="shadow-soft" mediaClassName="zoom-media" />
+        <p className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+          <span className="photo-chip tabular">{serviceDurations(service)}</span>
+          <span className="photo-chip tabular">
+            {multiple && <span className="font-medium text-ink-soft">{ui.from}</span>}
+            {formatPrice(startingPrice(service))}
+          </span>
         </p>
+      </div>
+      <div className="flex flex-1 flex-col pt-5">
+        <p className="label text-support-ink">{categoryLabel(service.category)}</p>
         <Heading className="mt-2 text-h3">
           {/* Enlace estirado: toda la tarjeta lleva al detalle */}
           <Link href={href} className="after:absolute after:inset-0 after:z-0 after:content-['']">
@@ -46,13 +47,9 @@ export function ServiceCard({ service, sizes, variant = "compact", headingLevel 
           </Link>
         </Heading>
         <p className="mt-2 text-small text-muted">{service.summary}</p>
-        <p className="mt-4 tabular">
-          <span className="text-small text-muted">{multiple ? `${ui.from} ` : ""}</span>
-          <span className="font-display text-[1.5rem] leading-none">{formatPrice(startingPrice(service))}</span>
-        </p>
 
         {variant === "full" ? (
-          <div className="relative z-10 mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="relative z-10 mt-auto flex pt-5 flex-wrap items-center gap-x-4 gap-y-2">
             <BookingLink service={service.name} variant={multiple ? undefined : `${service.variants[0].minutes} min`}>
               {ui.book}
             </BookingLink>
@@ -62,7 +59,7 @@ export function ServiceCard({ service, sizes, variant = "compact", headingLevel 
             </Link>
           </div>
         ) : (
-          <span aria-hidden="true" className="link-arrow mt-2 self-start text-small">
+          <span aria-hidden="true" className="link-arrow mt-auto self-start pt-2 text-small">
             {ui.viewDetail}
             <ArrowRight size={18} />
           </span>

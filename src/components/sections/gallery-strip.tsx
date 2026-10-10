@@ -20,7 +20,7 @@ export function GalleryStrip({ copy, items }: { copy: SectionCopy; items: readon
             <figure key={item.image} className="m-0 w-min">
               <Photo
                 id={item.image}
-                shape="rounded"
+                shape="card"
                 sizes="(min-width: 1024px) 420px, 70vw"
                 className="h-72 max-w-[86vw] sm:h-80 lg:h-[26rem]"
                 mediaClassName="zoom-media"

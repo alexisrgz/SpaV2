@@ -27,6 +27,7 @@
   :root {
     --header-h: 4.75rem;
     --gutter: 2rem;
+    --radius-card: 24px;
   }
 }
 
@@ -84,8 +85,11 @@
   --text-label--line-height: 1.3;
   --text-label--letter-spacing: 0.14em;
 
-  --radius-card: 24px;
+  /* Formas de imagen: TARJETA (20 → 24 px) y HOJA (dos esquinas opuestas muy redondeadas) */
+  --radius-card: 20px;
   --radius-pill: 999px;
+  --radius-leaf-lg: clamp(72px, 13vw, 160px);
+  --radius-leaf-md: clamp(48px, 8vw, 96px);
 
   --shadow-soft: 0 1px 2px rgb(58 42 24 / 0.05), 0 14px 32px -16px rgb(58 42 24 / 0.22);
   --shadow-lift: 0 2px 6px rgb(58 42 24 / 0.06), 0 28px 56px -24px rgb(58 42 24 / 0.32);
@@ -384,6 +388,23 @@
     white-space: nowrap;
   }
 
+  /* Chip informativo sobre una foto (duración, precio) */
+  .photo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    min-height: 2rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background-color: color-mix(in oklab, var(--brand-marfil) 94%, transparent);
+    color: var(--brand-tinta);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px -10px rgb(58 42 24 / 0.5);
+  }
+
   /* Botón de filtro (chips con estado) */
   .filter-chip {
     display: inline-flex;
@@ -411,12 +432,36 @@
     }
   }
 
-  /* ---------- Arco: la firma visual ---------- */
-  .arch-frame {
-    container-type: inline-size;
+  /* ---------- Formas de imagen ----------
+     HOJA: esquinas superior izquierda e inferior derecha muy redondeadas.
+     ESPEJO: superior derecha e inferior izquierda. TARJETA: radio uniforme.
+     Las fotos solo reciben forma a través de estas clases (prop `shape` de <Photo>). */
+  .shape-card,
+  .shape-leaf,
+  .shape-leaf-flip {
+    overflow: hidden;
+    isolation: isolate;
+    /* Safari: capa propia para que el zoom (scale) no desborde las esquinas.
+       Sin mask-image, que recortaría también la sombra del marco. */
+    transform: translateZ(0);
   }
-  .arch {
-    border-radius: 50cqi 50cqi var(--radius-card) var(--radius-card);
+  .shape-card {
+    border-radius: var(--radius-card);
+  }
+  .shape-leaf {
+    --leaf: var(--radius-leaf-lg);
+    border-radius: var(--leaf) var(--radius-card) var(--leaf) var(--radius-card);
+  }
+  .shape-leaf-flip {
+    --leaf: var(--radius-leaf-lg);
+    border-radius: var(--radius-card) var(--leaf) var(--radius-card) var(--leaf);
+  }
+  .shape-leaf-md {
+    --leaf: var(--radius-leaf-md);
+  }
+  /* Versión mínima de la hoja para íconos y ornamentos (no es una foto) */
+  .shape-icon {
+    border-radius: 1.25rem 0.375rem 1.25rem 0.375rem;
   }
 
   /* Zoom perceptible de imagen solo en dispositivos con hover */
@@ -474,12 +519,10 @@
     transition-delay: calc(var(--reveal-i, 0) * 90ms);
   }
 
-  /* Hero: el arco se abre y el texto entra escalonado */
+  /* Hero: la foto se asienta (solo escala, sin ocultarla: puede ser el LCP)
+     y el texto entra escalonado */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-arch {
-      animation: arch-open 1400ms var(--ease-out-soft) 120ms both;
-    }
-    .hero-arch .hero-media {
+    .hero-photo .hero-media {
       animation: media-settle 1800ms var(--ease-out-soft) 120ms both;
     }
     .hero-stagger > * {
@@ -493,14 +536,6 @@
     }
   }
 
-  @keyframes arch-open {
-    from {
-      clip-path: inset(22% 30% 0 30% round 50cqi 50cqi var(--radius-card) var(--radius-card));
-    }
-    to {
-      clip-path: inset(0 0 0 0 round 50cqi 50cqi var(--radius-card) var(--radius-card));
-    }
-  }
   @keyframes settle-in {
     from {
       translate: 0 0.75rem;
@@ -590,10 +625,10 @@
   }
   @keyframes sheet-in {
     from {
-      clip-path: inset(0 0 100% 0 round 0 0 50% 50%);
+      clip-path: inset(0 0 100% 0);
     }
     to {
-      clip-path: inset(0 0 0 0 round 0);
+      clip-path: inset(0);
     }
   }
   @keyframes fade-in {

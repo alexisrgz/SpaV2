@@ -24,19 +24,19 @@ espaldas o de perfil, relajadas; nada de sonrisas a cámara.
 
 | ★ | Archivo | Proporción | Qué debe mostrar | Dónde se usa |
 |---|---|---|---|---|
-| ★ | `hero.jpg` | 4:5 vertical | Sala de tratamiento con pared verde, plantas y luz cálida | Hero del inicio (arco grande) |
+| ★ | `hero.jpg` | 4:5 vertical | Sala de tratamiento con pared verde, plantas y luz cálida | Hero del inicio (vertical en desktop; en móvil se recorta a 4:3 horizontal) |
 |   | `about.jpg` | 4:5 vertical | Recepción o entrada del spa | Nosotros, historia |
 | ★ | `space-1.jpg` | 4:5 vertical | Recepción: mostrador de madera, cerámica, planta grande | Galería, Nosotros |
 | ★ | `space-2.jpg` | 3:2 horizontal | Sala de tratamiento con camilla preparada | Inicio («Por qué Savia»), Galería, Nosotros |
 | ★ | `space-3.jpg` | 3:2 horizontal | Zona de descanso o alberca con vegetación | Galería, Nosotros |
-|   | `space-4.jpg` | 1:1 cuadrada | Detalle de velas encendidas sobre toallas | Hero (círculo), Galería |
+|   | `space-4.jpg` | 1:1 cuadrada | Detalle de velas encendidas sobre toallas | Galería |
 | ★ | `svc-masaje-relajante.jpg` | 4:5 vertical | Masaje de espalda con aceite tibio | Tarjeta y detalle del servicio |
 | ★ | `svc-masaje-descontracturante.jpg` | 4:5 vertical | Manos trabajando hombros y cuello | Tarjeta y detalle del servicio |
 | ★ | `svc-facial-hidratante.jpg` | 4:5 vertical | Aplicación de mascarilla con brocha | Tarjeta y detalle del servicio |
 | ★ | `svc-facial-luminosidad.jpg` | 4:5 vertical | Rostro relajado, piel luminosa, luz natural | Tarjeta y detalle del servicio |
 | ★ | `svc-aromaterapia.jpg` | 4:5 vertical | Frascos de aceites esenciales con eucalipto y lavanda | Tarjeta y detalle del servicio |
 | ★ | `svc-ritual-corporal.jpg` | 4:5 vertical | Exfoliante de sal en cuencos de cerámica y toalla | Tarjeta y detalle del servicio |
-|   | `pkg-dia-de-spa.jpg` | 4:3 horizontal | Bata, sandalias y té en la zona de descanso | Experiencias |
+|   | `pkg-dia-de-spa.jpg` | 4:3 horizontal | Bata, sandalias y té en la zona de descanso | Experiencias (cuadrada en desktop, 4:3 en móvil) |
 |   | `pkg-para-dos.jpg` | 4:3 horizontal | Cabina doble con dos camillas y velas | Experiencias |
 |   | `pkg-novias.jpg` | 4:3 horizontal | Flores blancas, toalla y cuenco para ritual de novia | Experiencias |
 |   | `team-1.jpg` | 4:5 vertical | Retrato de Lucía Beltrán (masoterapeuta) | Nosotros |
@@ -48,5 +48,7 @@ espaldas o de perfil, relajadas; nada de sonrisas a cámara.
 |   | `gallery-04.jpg` | 3:2 horizontal | Pasillo de madera con luz entre celosías | Galería |
 |   | `gallery-05.jpg` | 2:3 vertical | Rama de eucalipto en la regadera del vestidor | Galería |
 
-Las fotos en arco (hero, servicios, equipo) se recortan con la parte superior redondeada:
-deja aire arriba del sujeto principal para que no quede cortado por la curva.
+Las fotos grandes (hero, «Por qué Savia», detalle de servicio, historia y experiencias) usan
+la forma HOJA: dos esquinas opuestas muy redondeadas. Deja aire alrededor del sujeto y no lo
+pegues a las esquinas. El hero también se recorta en horizontal en móvil: mantén el sujeto
+al centro de la toma.

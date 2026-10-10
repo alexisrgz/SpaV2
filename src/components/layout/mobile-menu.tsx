@@ -50,10 +50,10 @@ export function MobileMenu({ pathname }: { pathname: string }) {
         className="sheet tone-inverse lg:hidden"
       >
         <div className="relative flex min-h-full flex-col overflow-y-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-          {/* Arco ornamental de fondo */}
+          {/* Hoja ornamental de fondo */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-24 bottom-24 h-[26rem] w-[18rem] rounded-t-full border border-rule opacity-70"
+            className="shape-leaf pointer-events-none absolute -right-24 bottom-24 h-[24rem] w-[18rem] border border-rule opacity-70"
           />
 
           <div className="container-site flex h-(--header-h) flex-none items-center justify-between">

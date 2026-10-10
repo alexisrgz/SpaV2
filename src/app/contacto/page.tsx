@@ -106,7 +106,7 @@ export default function ContactPage() {
 
           {/* Mapa */}
           <div className="flex flex-col gap-5 lg:col-span-7">
-            <div className="arch-frame relative aspect-square overflow-hidden rounded-card bg-surface shadow-soft sm:aspect-[4/3] lg:aspect-auto lg:min-h-[34rem] lg:flex-1">
+            <div className="shape-card relative aspect-square bg-surface shadow-soft sm:aspect-[4/3] lg:aspect-auto lg:min-h-[34rem] lg:flex-1">
               <iframe
                 src={getMapEmbedSrc()}
                 title={copy.mapTitle}

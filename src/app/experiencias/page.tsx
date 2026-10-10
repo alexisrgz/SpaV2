@@ -48,7 +48,7 @@ export default function ExperiencesPage() {
 
       {/* Paquetes alternados */}
       <div className="tone-canvas pb-18 lg:pb-30">
-        <div className="container-site grid gap-20 lg:gap-28">
+        <div className="container-site grid gap-24 lg:gap-40">
           {packages.map((pkg, i) => {
             const reversed = i % 2 === 1;
             return (
@@ -61,11 +61,10 @@ export default function ExperiencesPage() {
               >
                 <Photo
                   id={pkg.image}
-                  shape="arch"
+                  shape={reversed ? "leafFlip" : "leaf"}
                   ratio="auto"
                   sizes="(min-width: 1024px) 560px, 92vw"
-                  className={cn("aspect-[4/3] lg:col-span-6 lg:aspect-[4/5]", reversed && "lg:order-2 lg:col-start-7")}
-                  frameClassName="shadow-lift"
+                  className={cn("aspect-[4/3] shadow-lift lg:col-span-6 lg:aspect-square", reversed && "lg:order-2 lg:col-start-7")}
                   mediaClassName="zoom-media"
                 />
                 <div className={cn("flex flex-col items-start gap-6 lg:col-span-6", reversed && "lg:order-1")}>

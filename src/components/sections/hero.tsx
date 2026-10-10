@@ -5,6 +5,7 @@ import type { home } from "@/data/content";
 import { BookingLink } from "@/components/ui/booking-link";
 import { Emphasis } from "@/components/ui/emphasis";
 import { Photo } from "@/components/ui/photo";
+import { TodayChip } from "@/components/ui/today-chip";
 
 type HeroProps = { copy: typeof home.hero };
 
@@ -24,9 +25,9 @@ function TrustChips({ chips, className }: { chips: readonly string[]; className?
 }
 
 /**
- * Hero a 100svh. Móvil: arco arriba (se adapta a la altura disponible) con los
- * chips en el hueco lateral, y el texto + CTA abajo, siempre visibles en 360×640.
- * Desktop: composición asimétrica, texto 7/12 y arco grande 5/12.
+ * Hero a 100svh. Móvil: foto en HOJA a todo el ancho útil (4:3, con tope de alto
+ * para que el CTA se vea sin scroll en 360×640) y el texto debajo.
+ * Desktop: composición asimétrica, texto 7/12 y foto vertical 5/12.
  */
 export function Hero({ copy }: HeroProps) {
   return (
@@ -35,35 +36,21 @@ export function Hero({ copy }: HeroProps) {
       data-hide-booking-bar
       className="relative isolate overflow-hidden"
     >
-      <div className="container-site flex min-h-[calc(100svh-var(--header-h))] flex-col gap-6 pt-2 pb-7 lg:grid lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-6 lg:pb-16">
-        {/* Visual: en móvil el arco toma toda la altura libre (alto × 4/5) */}
-        <div className="relative min-h-36 flex-1 lg:order-2 lg:col-span-5 lg:col-start-8 lg:h-[min(78svh,44rem)] lg:flex-none">
-          <div className="absolute inset-y-0 right-1 aspect-[4/5] max-sm:max-w-[calc(100%-0.75rem)] lg:inset-y-0 lg:right-auto lg:left-1/2 lg:-translate-x-1/2">
-            {/* Eco del arco: un trazo desplazado que da profundidad */}
-            <div
-              aria-hidden="true"
-              className="arch-frame absolute inset-0 translate-x-2.5 -translate-y-2.5 lg:translate-x-6 lg:-translate-y-6"
-            >
-              <div className="arch absolute inset-0 border border-support/70" />
-            </div>
-            <Photo
-              id="hero"
-              priority
-              shape="arch"
-              ratio="auto"
-              sizes="(min-width: 1024px) 34vw, 80vw"
-              className="absolute inset-0"
-              frameClassName="hero-arch shadow-lift"
-            />
-            <Photo
-              id="space-4"
-              shape="circle"
-              ratio="1/1"
-              sizes="(min-width: 1024px) 180px, 120px"
-              className="absolute -bottom-3 -left-5 w-[36%] rounded-full ring-6 ring-canvas lg:-bottom-6 lg:-left-16 lg:w-[38%] lg:ring-8"
-              frameClassName="hero-stagger"
-            />
-          </div>
+      <div className="container-site flex min-h-[calc(100svh-var(--header-h))] flex-col gap-7 pt-2 pb-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-6 lg:pb-16">
+        {/* Visual */}
+        <div className="relative lg:order-2 lg:col-span-5 lg:col-start-8">
+          <Photo
+            id="hero"
+            priority
+            shape="leaf"
+            ratio="auto"
+            sizes="(min-width: 1024px) 36vw, 92vw"
+            className="hero-photo aspect-[4/3] max-h-[max(7rem,min(30svh,calc(100svh-30.5rem)))] w-full shadow-lift md:max-h-[44svh] lg:mx-auto lg:aspect-[4/5] lg:h-[min(78svh,44rem)] lg:max-h-none lg:w-auto lg:max-w-full"
+          />
+          <TodayChip
+            labels={copy.today}
+            className="absolute -bottom-5 left-4 lg:-bottom-6 lg:-left-8"
+          />
         </div>
 
         {/* Texto */}

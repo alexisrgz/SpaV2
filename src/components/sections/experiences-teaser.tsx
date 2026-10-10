@@ -43,7 +43,7 @@ function PackageTeaser({ pkg, size, className }: { pkg: Package; size: "lead" | 
     >
       <Photo
         id={pkg.image}
-        shape="rounded"
+        shape="card"
         ratio={isRow ? "4/3" : "auto"}
         sizes={isRow ? "(min-width: 1024px) 260px, (min-width: 640px) 42vw, 92vw" : "(min-width: 1024px) 560px, 92vw"}
         className={isRow ? undefined : "aspect-[4/3] lg:aspect-[6/5]"}

@@ -7,7 +7,7 @@ export const ogSize = { width: 1200, height: 630 };
 
 const fontsDir = join(process.cwd(), "src", "assets", "fonts");
 
-/** Imagen Open Graph de marca: bosque, título en Fraunces y el arco como firma. */
+/** Imagen Open Graph de marca: bosque, título en Fraunces y una foto-hoja como firma. */
 export async function renderOgImage({ title, kicker }: { title: string; kicker: string }) {
   const [regular, italic] = await Promise.all([
     readFile(join(fontsDir, "Fraunces-Regular.ttf")),
@@ -61,20 +61,8 @@ export async function renderOgImage({ title, kicker }: { title: string; kicker: 
             top: 70,
             width: 320,
             height: 490,
-            borderRadius: "160px 160px 24px 24px",
+            borderRadius: "140px 24px 140px 24px",
             background: "linear-gradient(165deg, #8c9f86 0%, #4b6a55 60%, #2c4b3c 100%)",
-            display: "flex",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 58,
-            top: 48,
-            width: 320,
-            height: 490,
-            borderRadius: "160px 160px 24px 24px",
-            border: "1.5px solid rgba(221,229,216,0.45)",
             display: "flex",
           }}
         />

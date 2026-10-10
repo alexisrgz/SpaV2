@@ -7,12 +7,12 @@ import type { CSSProperties } from "react";
 
 type WhySaviaProps = { copy: typeof home.why; image: ImageKey };
 
-/** "Por qué Savia": una foto con parallax sutil + cuatro razones concretas. */
+/** "Por qué Savia": foto en HOJA espejo con parallax sutil + cuatro razones concretas. */
 export function WhySavia({ copy, image }: WhySaviaProps) {
   return (
     <section aria-labelledby="por-que-title" className="tone-surface section-y overflow-hidden">
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
-        <div className="lg:col-span-7 lg:col-start-6 lg:row-start-1">
+        <div className="lg:col-span-6 lg:col-start-7 lg:row-start-1">
           <h2 id="por-que-title" className="text-h2">
             <Emphasis text={copy.title} />
           </h2>
@@ -38,14 +38,13 @@ export function WhySavia({ copy, image }: WhySaviaProps) {
           </ul>
         </div>
 
-        <div data-reveal className="lg:col-span-5 lg:col-start-1 lg:row-start-1">
+        <div data-reveal className="lg:col-span-6 lg:col-start-1 lg:row-start-1">
           <Photo
             id={image}
-            shape="arch"
+            shape="leafFlip"
             ratio="auto"
-            sizes="(min-width: 1024px) 40vw, 92vw"
-            className="aspect-square sm:aspect-[16/10] lg:aspect-[4/5]"
-            frameClassName="shadow-lift"
+            sizes="(min-width: 1024px) 46vw, 92vw"
+            className="aspect-square shadow-lift sm:aspect-[16/10] lg:aspect-[4/5]"
             mediaClassName="parallax-media"
           />
         </div>

@@ -12,12 +12,12 @@ import { OpenStatus } from "@/components/ui/open-status";
 export function FinalCta({ copy }: { copy: typeof home.finalCta }) {
   return (
     <section aria-labelledby="cta-final-title" className="tone-inverse section-y relative isolate overflow-hidden">
-      {/* Arcos concéntricos de fondo */}
+      {/* Hojas concéntricas de fondo */}
       <div aria-hidden="true" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 hidden md:block">
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="absolute right-0 bottom-0 rounded-t-full border border-rule"
+            className="shape-leaf-flip absolute right-0 bottom-0 border border-rule"
             style={{ width: `${30 + i * 9}rem`, height: `${42 + i * 9}rem`, right: `${-i * 4.5}rem`, bottom: `${-i * 4.5}rem` }}
           />
         ))}

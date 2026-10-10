@@ -135,10 +135,49 @@ experiencias, contacto) apuntan a `/reservar` con navegación interna, sin `targ
 
 ## Decisiones de diseño
 
-**Concepto: refugio botánico cálido.** El arco es la firma: hero, tarjetas de servicio, detalle,
-equipo, favicon y monograma del logo. Se dibuja con `border-radius` en unidades de contenedor (`50cqi`),
-así el arco es siempre medio círculo exacto sea cual sea el tamaño. En el hero el arco se "abre"
-con `clip-path` al cargar, y un trazo desplazado detrás le da profundidad.
+**Concepto: refugio botánico cálido.** Las fotos usan un sistema de dos formas (ver abajo) que
+dialoga con las píldoras y los radios de 20–24 px del resto de la UI. En el hero la foto se asienta
+con una escala suave al cargar y el texto entra escalonado.
+
+### Sistema de formas de imagen
+
+Dos formas y una regla. Ningún componente escribe `border-radius` de fotos: todo pasa por
+la prop `shape` de `<Photo>` / `<PhotoFrame>` y las clases de `globals.css`.
+
+| Forma | `shape` | Clase | Radios |
+|---|---|---|---|
+| **HOJA** | `"leaf"` | `.shape-leaf` | superior izquierda e inferior derecha = `--radius-leaf-lg`; las otras dos = `--radius-card` |
+| **HOJA espejo** | `"leafFlip"` | `.shape-leaf-flip` | superior derecha e inferior izquierda grandes (para alternar en zigzag) |
+| **TARJETA** | `"card"` (por defecto) | `.shape-card` | `--radius-card` en las cuatro esquinas |
+
+Tokens (en `@theme` / `:root`):
+
+- `--radius-leaf-lg: clamp(72px, 13vw, 160px)` para imágenes grandes.
+- `--radius-leaf-md: clamp(48px, 8vw, 96px)` para medianas (`leafSize="md"` → `.shape-leaf-md`).
+- `--radius-card: 20px` en móvil y `24px` desde 768 px.
+
+**Regla de uso:** la HOJA va solo en imágenes grandes (≥ 45% del ancho del contenedor) y como
+máximo una visible por pantalla. Todo lo que se repite (tarjetas, carruseles, galería, lightbox,
+equipo, paquetes del inicio, mapa) usa TARJETA.
+
+| Dónde | Forma |
+|---|---|
+| Hero del inicio | HOJA (+ chip "Abierto hoy · horario" sobre el borde inferior izquierdo) |
+| "Por qué Savia" | HOJA espejo (con el único parallax del sitio) |
+| Detalle de servicio (foto principal 4:5) | HOJA |
+| Experiencias (`/experiencias`) | HOJA y HOJA espejo alternadas por fila |
+| Nosotros (historia) | HOJA |
+| Tarjetas de servicio, "Te puede interesar", teaser de experiencias, galería, lightbox, equipo, espacio | TARJETA |
+
+Las clases de forma aplican `overflow: hidden`, `isolation: isolate` y `transform: translateZ(0)`,
+así el zoom en hover (`.zoom-media`, escala 1.05) no se sale de las esquinas en Chrome ni en Safari.
+El placeholder sin foto usa la misma forma y proporción. Los ornamentos de línea (menú móvil y
+CTA final) y los íconos de valores usan la misma geometría de hoja (`.shape-leaf`, `.shape-icon`).
+
+En `/experiencias` las filas en zigzag van separadas 160 px en desktop, pero al pasar de una fila
+a otra pueden asomar brevemente las orillas de dos hojas.
+
+El monograma del logo y el favicon conservan su dibujo (arco con hoja): son marca, no fotografía.
 
 **Terracota = reservar.** `.btn-book` (arcilla) es la única clase que usa el acento y solo la usa
 `BookingLink`. Los placeholders de foto usan tonos salvia, bosque, crema y arena, nunca terracota.

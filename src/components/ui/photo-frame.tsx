@@ -11,7 +11,13 @@ export type PhotoData = ImageSpec & {
   src: string | null;
 };
 
-export type PhotoShape = "arch" | "rounded" | "circle" | "none";
+/**
+ * Sistema de formas de imagen (tokens y clases en globals.css):
+ * - "leaf" / "leafFlip": HOJA, solo en imágenes grandes (≥ 45 % del contenedor) y
+ *   como máximo una visible por pantalla. "leafFlip" es el espejo para zigzag.
+ * - "card": TARJETA, para todo lo repetido (tarjetas, carruseles, galería, equipo).
+ */
+export type PhotoShape = "leaf" | "leafFlip" | "card";
 
 export type PhotoFrameProps = {
   photo: PhotoData;
@@ -19,38 +25,39 @@ export type PhotoFrameProps = {
   sizes: string;
   priority?: boolean;
   shape?: PhotoShape;
+  /** Radio grande de la hoja: "lg" para imágenes protagonistas, "md" para medianas. */
+  leafSize?: "lg" | "md";
   /** Proporción del marco. Por defecto, la de la foto. "auto" = el tamaño lo da `className`. */
   ratio?: string;
+  /** Clases del marco (tamaño, posición, sombra, animación). */
   className?: string;
-  /** Clases del recorte interior (sombra, animación de apertura…). */
-  frameClassName?: string;
   /** Clases de la imagen/placeholder (zoom, parallax…). */
   mediaClassName?: string;
   /** Texto alternativo distinto al del mapa de imágenes (p. ej. decorativa = ""). */
   alt?: string;
-  /** Estilos extra del marco exterior (p. ej. ancho calculado). */
+  /** Estilos extra del marco (p. ej. ancho calculado). */
   style?: CSSProperties;
 };
 
 const SHAPES: Record<PhotoShape, string> = {
-  arch: "arch",
-  rounded: "rounded-card",
-  circle: "rounded-full",
-  none: "",
+  leaf: "shape-leaf",
+  leafFlip: "shape-leaf-flip",
+  card: "shape-card",
 };
 
 /**
- * Marco de foto: reserva la proporción (CLS ≈ 0) y muestra la imagen optimizada
- * o, si no existe todavía, un placeholder de marca. Sin hooks: sirve en servidor y cliente.
+ * Marco de foto: reserva la proporción (CLS ≈ 0), recorta con la forma elegida y
+ * muestra la imagen optimizada o, si aún no existe, un placeholder de marca con la
+ * misma forma. Sin hooks: sirve en servidor y cliente.
  */
 export function PhotoFrame({
   photo,
   sizes,
   priority = false,
-  shape = "rounded",
+  shape = "card",
+  leafSize = "lg",
   ratio,
   className,
-  frameClassName,
   mediaClassName,
   alt,
   style,
@@ -61,22 +68,28 @@ export function PhotoFrame({
   const positioned = /(^|\s)(absolute|fixed|sticky)(\s|$)/.test(className ?? "");
 
   return (
-    <div className={cn("arch-frame", !positioned && "relative", className)} style={{ ...(aspect ? { aspectRatio: aspect } : null), ...style }}>
-      <div className={cn("absolute inset-0 isolate overflow-hidden", SHAPES[shape], frameClassName)}>
-        {photo.src ? (
-          <Image
-            src={photo.src}
-            alt={altText}
-            fill
-            sizes={sizes}
-            priority={priority}
-            quality={priority ? 85 : 75}
-            className={cn("hero-media object-cover", mediaClassName)}
-          />
-        ) : (
-          <PhotoPlaceholder photo={photo} alt={altText} className={cn("hero-media", mediaClassName)} />
-        )}
-      </div>
+    <div
+      className={cn(
+        SHAPES[shape],
+        shape !== "card" && leafSize === "md" && "shape-leaf-md",
+        !positioned && "relative",
+        className,
+      )}
+      style={{ ...(aspect ? { aspectRatio: aspect } : null), ...style }}
+    >
+      {photo.src ? (
+        <Image
+          src={photo.src}
+          alt={altText}
+          fill
+          sizes={sizes}
+          priority={priority}
+          quality={priority ? 85 : 75}
+          className={cn("hero-media object-cover", mediaClassName)}
+        />
+      ) : (
+        <PhotoPlaceholder photo={photo} alt={altText} className={cn("hero-media", mediaClassName)} />
+      )}
     </div>
   );
 }
