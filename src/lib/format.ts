@@ -26,3 +26,8 @@ export function cn(...classes: Array<string | false | null | undefined>): string
 export function initialOf(name: string): string {
   return name.trim().charAt(0).toLocaleUpperCase(site.locale);
 }
+
+/** Quita los *asteriscos* de énfasis (para metadata y aria-labels). */
+export function plainText(text: string): string {
+  return text.replace(/\*(.+?)\*/g, "$1");
+}

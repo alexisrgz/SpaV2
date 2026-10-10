@@ -5,7 +5,7 @@
  * de foto está en PHOTOS.md.
  */
 
-export type ImageTone = "salvia" | "bosque" | "crema" | "arcilla";
+export type ImageTone = "salvia" | "bosque" | "crema" | "arena";
 
 export type ImageSpec = {
   file: string;
@@ -51,7 +51,7 @@ export const images = {
     file: "space-4.jpg",
     ratio: "1/1",
     alt: "Detalle de velas encendidas sobre toallas de algodón color arena",
-    tone: "arcilla",
+    tone: "arena",
   },
   "svc-masaje-relajante": {
     file: "svc-masaje-relajante.jpg",
@@ -75,7 +75,7 @@ export const images = {
     file: "svc-facial-luminosidad.jpg",
     ratio: "4/5",
     alt: "Rostro relajado con piel luminosa después de un facial, bajo luz natural",
-    tone: "arcilla",
+    tone: "arena",
   },
   "svc-aromaterapia": {
     file: "svc-aromaterapia.jpg",
@@ -99,7 +99,7 @@ export const images = {
     file: "pkg-para-dos.jpg",
     ratio: "4/3",
     alt: "Cabina doble con dos camillas preparadas y velas encendidas",
-    tone: "arcilla",
+    tone: "arena",
   },
   "pkg-novias": {
     file: "pkg-novias.jpg",
@@ -123,7 +123,7 @@ export const images = {
     file: "team-3.jpg",
     ratio: "4/5",
     alt: "Retrato de Iván Lizárraga, terapeuta corporal de Savia Spa",
-    tone: "arcilla",
+    tone: "arena",
   },
   "gallery-01": {
     file: "gallery-01.jpg",
@@ -135,7 +135,7 @@ export const images = {
     file: "gallery-02.jpg",
     ratio: "1/1",
     alt: "Cuenco de cerámica con sal de mar y pétalos secos",
-    tone: "arcilla",
+    tone: "arena",
   },
   "gallery-03": {
     file: "gallery-03.jpg",

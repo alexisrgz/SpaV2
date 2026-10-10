@@ -97,6 +97,7 @@ export const servicesPage = {
   filterLabel: "Filtrar por categoría",
   allLabel: "Todos",
   emptyLabel: "No hay servicios en esta categoría por ahora.",
+  countTemplate: "Mostrando {n} servicios",
 };
 
 export const serviceDetail = {
@@ -137,6 +138,10 @@ export const experiencesPage = {
   includesLabel: "Incluye",
   idealForLabel: "Ideal para",
   durationLabel: "Duración",
+  priceLabel: "Precio",
+  bookLabel: "Reservar",
+  /** Prefijo del nombre en el mensaje de WhatsApp: "Experiencia Día de spa (4 h)". */
+  bookingPrefix: "Experiencia",
 };
 
 export const galleryPage = {
@@ -149,6 +154,7 @@ export const galleryPage = {
   intro: "El espacio, los tratamientos y los pequeños detalles. Toca cualquier foto para verla completa.",
   allLabel: "Todo",
   filterLabel: "Filtrar fotos",
+  countTemplate: "Mostrando {n} fotos",
   lightbox: {
     close: "Cerrar galería",
     previous: "Foto anterior",
@@ -221,27 +227,4 @@ export const notFoundPage = {
   title: "Esta página *se tomó el día*",
   text: "No encontramos lo que buscabas. Puede que el enlace haya cambiado.",
   cta: { href: "/", label: "Volver al inicio" },
-};
-
-export const ui = {
-  skipLink: "Saltar al contenido",
-  menuOpen: "Abrir menú",
-  menuClose: "Cerrar menú",
-  mainNav: "Navegación principal",
-  footerNav: "Mapa del sitio",
-  book: "Reservar",
-  call: "Llamar",
-  callAria: "Llamar a Savia Spa",
-  viewDetail: "Ver detalle",
-  from: "desde",
-  carouselPrev: "Anterior",
-  carouselNext: "Siguiente",
-  goToSlide: "Ir a la tarjeta",
-  breadcrumbLabel: "Ruta de navegación",
-  breadcrumbHome: "Inicio",
-  footerHours: "Horarios",
-  footerContact: "Contacto",
-  footerExplore: "Explora",
-  newTab: "(se abre en una pestaña nueva)",
-  rating: (n: number) => `${n} de 5 estrellas`,
 };

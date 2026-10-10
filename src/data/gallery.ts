@@ -22,4 +22,4 @@ export const gallery: readonly GalleryItem[] = [
 ];
 
 /** Franja horizontal de la página de inicio. */
-export const galleryHighlights: readonly GalleryItem[] = gallery.slice(0, 7);
+export const galleryHighlights: readonly GalleryItem[] = gallery.slice(0, 6);

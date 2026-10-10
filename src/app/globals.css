@@ -40,6 +40,14 @@
 /* ==========================================================================
    2. Tokens semánticos (lo único que usan los componentes)
    ========================================================================== */
+/* Colores que cambian según el tono de la sección (ver .tone-*). "inline" hace que
+   la utilidad lea la variable en cada elemento y no el valor resuelto en :root. */
+@theme inline {
+  --color-muted: var(--tone-muted);
+  --color-accent-em: var(--tone-em);
+  --color-rule: var(--tone-rule);
+}
+
 @theme {
   --color-canvas: var(--brand-marfil);
   --color-surface: var(--brand-crema);
@@ -54,11 +62,6 @@
   --color-book-hover: var(--brand-arcilla-hover);
   --color-book-ink: var(--brand-arcilla-ink);
   --color-line: var(--brand-linea);
-  /* Cambian según el tono de la sección (ver .tone-*) */
-  --color-muted: var(--tone-muted);
-  --color-accent-em: var(--tone-em);
-  --color-rule: var(--tone-rule);
-
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 
@@ -158,7 +161,7 @@
   h3 em,
   .font-display em {
     font-style: italic;
-    color: var(--color-accent-em);
+    color: var(--tone-em);
     font-variation-settings: "SOFT" 100;
   }
 
@@ -389,7 +392,7 @@
     min-height: 48px;
     padding-inline: 1.25rem;
     border-radius: var(--radius-pill);
-    border: 1.5px solid var(--color-rule);
+    border: 1.5px solid var(--tone-rule);
     font-size: 0.9375rem;
     font-weight: 650;
     white-space: nowrap;
@@ -454,7 +457,7 @@
   /* Divisor botánico entre secciones */
   .hairline {
     height: 1px;
-    background-color: var(--color-rule);
+    background-color: var(--tone-rule);
     border: 0;
   }
 }
