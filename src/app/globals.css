@@ -1,1 +1,634 @@
 @import "tailwindcss";
+
+/* ==========================================================================
+   1. Paleta de marca (Savia). Para otra marca, cambia solo estos valores.
+   Contrastes verificados (WCAG AA) en README → "Tokens y contraste".
+   ========================================================================== */
+:root {
+  --brand-marfil: #f6f1e8;
+  --brand-crema: #ede4d6;
+  --brand-bosque: #1f3a2f;
+  --brand-bosque-deep: #172c23;
+  --brand-salvia: #7e9279;
+  --brand-salvia-ink: #56664f; /* salvia oscurecida para texto sobre claros (5.5:1) */
+  --brand-musgo-suave: #dde5d8;
+  --brand-tinta: #23261f;
+  --brand-tinta-suave: #4a4d44;
+  --brand-arcilla: #a4543a; /* acento EXCLUSIVO de reservar */
+  --brand-arcilla-hover: #8c4530;
+  --brand-arcilla-ink: #924a32; /* arcilla para texto sobre crema (4.9:1) */
+  --brand-linea: #d8ccb9;
+
+  --header-h: 4rem;
+  --bar-h: 4.75rem;
+  --gutter: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 4.75rem;
+    --gutter: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}
+
+/* ==========================================================================
+   2. Tokens semánticos (lo único que usan los componentes)
+   ========================================================================== */
+@theme {
+  --color-canvas: var(--brand-marfil);
+  --color-surface: var(--brand-crema);
+  --color-inverse: var(--brand-bosque);
+  --color-inverse-deep: var(--brand-bosque-deep);
+  --color-support: var(--brand-salvia);
+  --color-support-ink: var(--brand-salvia-ink);
+  --color-soft: var(--brand-musgo-suave);
+  --color-ink: var(--brand-tinta);
+  --color-ink-soft: var(--brand-tinta-suave);
+  --color-book: var(--brand-arcilla);
+  --color-book-hover: var(--brand-arcilla-hover);
+  --color-book-ink: var(--brand-arcilla-ink);
+  --color-line: var(--brand-linea);
+  /* Cambian según el tono de la sección (ver .tone-*) */
+  --color-muted: var(--tone-muted);
+  --color-accent-em: var(--tone-em);
+  --color-rule: var(--tone-rule);
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala fluida 390 → 1440 px */
+  --text-h1: clamp(2.5rem, 1.48rem + 4.19vw, 5.25rem);
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h2: clamp(2rem, 1.443rem + 2.286vw, 3.5rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: clamp(1.375rem, 1.19rem + 0.762vw, 1.875rem);
+  --text-h3--line-height: 1.18;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.3vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+  --text-label: 0.78125rem;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.14em;
+
+  --radius-card: 24px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 1px 2px rgb(58 42 24 / 0.05), 0 14px 32px -16px rgb(58 42 24 / 0.22);
+  --shadow-lift: 0 2px 6px rgb(58 42 24 / 0.06), 0 28px 56px -24px rgb(58 42 24 / 0.32);
+  --shadow-book: 0 2px 4px rgb(120 50 28 / 0.18), 0 12px 24px -12px rgb(120 50 28 / 0.45);
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-xs: 22.5rem;
+}
+
+/* ==========================================================================
+   3. Base
+   ========================================================================== */
+@layer base {
+  :root {
+    --tone-muted: var(--brand-tinta-suave);
+    --tone-em: var(--brand-salvia-ink);
+    --tone-rule: var(--brand-linea);
+    --ring: var(--brand-bosque);
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    color-scheme: light;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+    scrollbar-color: var(--brand-salvia) var(--brand-crema);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-canvas);
+    background-image: var(--grain);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 60;
+    text-wrap: balance;
+  }
+
+  h1 em,
+  h2 em,
+  h3 em,
+  .font-display em {
+    font-style: italic;
+    color: var(--color-accent-em);
+    font-variation-settings: "SOFT" 100;
+  }
+
+  p {
+    text-wrap: pretty;
+    max-inline-size: 62ch;
+  }
+
+  ::selection {
+    background-color: var(--brand-musgo-suave);
+    color: var(--brand-bosque);
+  }
+
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* Números de precio y duración alineados */
+  .tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+}
+
+/* ==========================================================================
+   4. Tonos de sección (ritmo marfil / crema / bosque)
+   ========================================================================== */
+@layer components {
+  .tone-canvas {
+    background-color: var(--color-canvas);
+    background-image: var(--grain);
+    color: var(--color-ink);
+  }
+  .tone-surface {
+    background-color: var(--color-surface);
+    background-image: var(--grain);
+    color: var(--color-ink);
+    --tone-rule: #d3c5af;
+  }
+  .tone-inverse {
+    background-color: var(--color-inverse);
+    color: var(--brand-marfil);
+    --tone-muted: color-mix(in oklab, var(--brand-marfil) 80%, var(--brand-bosque));
+    --tone-em: var(--brand-musgo-suave);
+    --tone-rule: color-mix(in oklab, var(--brand-marfil) 22%, var(--brand-bosque));
+    --ring: var(--brand-marfil);
+    scrollbar-color: var(--brand-salvia) var(--brand-bosque);
+  }
+  .tone-inverse-deep {
+    background-color: var(--color-inverse-deep);
+    color: var(--brand-marfil);
+    --tone-muted: color-mix(in oklab, var(--brand-marfil) 78%, var(--brand-bosque-deep));
+    --tone-em: var(--brand-musgo-suave);
+    --tone-rule: color-mix(in oklab, var(--brand-marfil) 18%, var(--brand-bosque-deep));
+    --ring: var(--brand-marfil);
+  }
+
+  /* Contenedor: 1200 px de contenido + márgenes laterales */
+  .container-site {
+    width: 100%;
+    max-width: calc(1200px + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .section-y {
+    padding-block: 4.5rem;
+  }
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-block: 7.5rem;
+    }
+  }
+
+  .label {
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ---------- Botones píldora ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 52px;
+    padding-inline: 1.6rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: 0.005em;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color 250ms var(--ease-out-soft),
+      color 250ms var(--ease-out-soft),
+      border-color 250ms var(--ease-out-soft),
+      box-shadow 300ms var(--ease-out-soft),
+      transform 300ms var(--ease-out-soft);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn svg {
+    flex: none;
+    transition: transform 300ms var(--ease-out-soft);
+  }
+  @media (hover: hover) {
+    .btn:hover svg.btn-arrow {
+      transform: translateX(3px);
+    }
+  }
+
+  /* Terracota = reservar. No usar .btn-book para ninguna otra acción. */
+  .btn-book {
+    background-color: var(--color-book);
+    color: var(--brand-marfil);
+    box-shadow: var(--shadow-book);
+  }
+  @media (hover: hover) {
+    .btn-book:hover {
+      background-color: var(--color-book-hover);
+    }
+  }
+  .tone-inverse .btn-book,
+  .tone-inverse-deep .btn-book {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--brand-marfil) 22%, transparent),
+      0 14px 28px -14px rgb(0 0 0 / 0.5);
+  }
+
+  .btn-outline {
+    border: 1.5px solid currentColor;
+    color: inherit;
+    background-color: transparent;
+  }
+  @media (hover: hover) {
+    .btn-outline:hover {
+      background-color: color-mix(in oklab, currentColor 8%, transparent);
+    }
+  }
+
+  .btn-solid {
+    background-color: var(--color-inverse);
+    color: var(--brand-marfil);
+  }
+  @media (hover: hover) {
+    .btn-solid:hover {
+      background-color: var(--color-inverse-deep);
+    }
+  }
+
+  .btn-icon {
+    padding-inline: 0;
+    width: 52px;
+    flex: none;
+  }
+
+  /* Enlace de texto con flecha (acciones secundarias) */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    font-weight: 650;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+    text-underline-offset: 0.35em;
+    transition: text-decoration-color 250ms var(--ease-out-soft);
+  }
+  .link-arrow svg {
+    transition: transform 300ms var(--ease-out-soft);
+  }
+  @media (hover: hover) {
+    .link-arrow:hover {
+      text-decoration-color: currentColor;
+    }
+    .link-arrow:hover svg {
+      transform: translateX(3px);
+    }
+  }
+
+  /* ---------- Chips ---------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.25rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-soft);
+    color: var(--brand-bosque);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Botón de filtro (chips con estado) */
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding-inline: 1.25rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-rule);
+    font-size: 0.9375rem;
+    font-weight: 650;
+    white-space: nowrap;
+    transition:
+      background-color 250ms var(--ease-out-soft),
+      color 250ms var(--ease-out-soft),
+      border-color 250ms var(--ease-out-soft);
+  }
+  .filter-chip[aria-pressed="true"] {
+    background-color: var(--color-inverse);
+    border-color: var(--color-inverse);
+    color: var(--brand-marfil);
+  }
+  @media (hover: hover) {
+    .filter-chip[aria-pressed="false"]:hover {
+      border-color: var(--color-ink);
+    }
+  }
+
+  /* ---------- Arco: la firma visual ---------- */
+  .arch-frame {
+    container-type: inline-size;
+  }
+  .arch {
+    border-radius: 50cqi 50cqi var(--radius-card) var(--radius-card);
+  }
+  .arch-full {
+    border-radius: 50cqi 50cqi 50cqi 50cqi / 50cqi 50cqi 50cqi 50cqi;
+  }
+
+  /* Zoom perceptible de imagen solo en dispositivos con hover */
+  .zoom-media {
+    transition: scale 700ms var(--ease-out-soft);
+  }
+  @media (hover: hover) {
+    .group:hover .zoom-media,
+    .group:focus-visible .zoom-media {
+      scale: 1.05;
+    }
+  }
+
+  /* Carriles con scroll horizontal intencional */
+  .rail {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+    flex: none;
+  }
+
+  /* Divisor botánico entre secciones */
+  .hairline {
+    height: 1px;
+    background-color: var(--color-rule);
+    border: 0;
+  }
+}
+
+/* ==========================================================================
+   5. Movimiento (todo se desactiva con prefers-reduced-motion)
+   ========================================================================== */
+@layer components {
+  /* Reveal al hacer scroll. Solo se oculta si JS marcó <html data-motion>. */
+  :root[data-motion] [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+  :root[data-motion] [data-reveal] {
+    transition:
+      opacity 900ms var(--ease-out-soft),
+      translate 900ms var(--ease-out-soft);
+    transition-delay: calc(var(--reveal-i, 0) * 90ms);
+  }
+
+  /* Hero: el arco se abre y el texto entra escalonado */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-arch {
+      animation: arch-open 1400ms var(--ease-out-soft) 120ms both;
+    }
+    .hero-arch .hero-media {
+      animation: media-settle 1800ms var(--ease-out-soft) 120ms both;
+    }
+    .hero-stagger > * {
+      animation: rise-in 1000ms var(--ease-out-soft) both;
+      animation-delay: calc(200ms + var(--i, 0) * 110ms);
+    }
+  }
+
+  @keyframes arch-open {
+    from {
+      clip-path: inset(22% 30% 0 30% round 50cqi 50cqi var(--radius-card) var(--radius-card));
+    }
+    to {
+      clip-path: inset(0 0 0 0 round 50cqi 50cqi var(--radius-card) var(--radius-card));
+    }
+  }
+  @keyframes media-settle {
+    from {
+      scale: 1.14;
+    }
+    to {
+      scale: 1;
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      translate: 0 1.25rem;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  /* Marquee lento de servicios */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 60s) linear infinite;
+  }
+  @media (hover: hover) {
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+
+  /* Parallax sutil en UNA imagen (solo desktop, mejora progresiva) */
+  @supports (animation-timeline: view()) {
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      .parallax-media {
+        animation: parallax linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 100%;
+      }
+    }
+  }
+  @keyframes parallax {
+    from {
+      translate: 0 -5%;
+      scale: 1.12;
+    }
+    to {
+      translate: 0 5%;
+      scale: 1.12;
+    }
+  }
+
+  /* Diálogos (menú móvil y lightbox) */
+  dialog.sheet {
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overscroll-behavior: contain;
+  }
+  dialog.sheet::backdrop {
+    background-color: rgb(23 44 35 / 0.6);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.sheet[open] {
+      animation: sheet-in 520ms var(--ease-out-soft);
+    }
+    dialog.sheet[open]::backdrop {
+      animation: fade-in 400ms var(--ease-out-soft);
+    }
+  }
+  @keyframes sheet-in {
+    from {
+      clip-path: inset(0 0 100% 0 round 0 0 50% 50%);
+    }
+    to {
+      clip-path: inset(0 0 0 0 round 0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Acordeón con apertura suave donde el navegador lo permite */
+  @supports (interpolate-size: allow-keywords) {
+    .accordion {
+      interpolate-size: allow-keywords;
+    }
+    .accordion details::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size 380ms var(--ease-out-soft),
+        content-visibility 380ms allow-discrete;
+    }
+    .accordion details[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   6. Barra inferior móvil: el footer reserva su alto para que nunca tape
+   contenido (va en el footer y no en <body> para no dejar una franja marfil
+   bajo el footer verde).
+   ========================================================================== */
+@media (max-width: 767.98px) {
+  .pad-bottom-bar {
+    padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom) + 1.5rem);
+  }
+}
