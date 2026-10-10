@@ -19,7 +19,7 @@ export function Breadcrumb({ items }: { items: readonly Crumb[] }) {
                 </span>
               ) : (
                 <>
-                  <Link href={item.href} className="inline-flex min-h-12 items-center underline-offset-4 hover:underline">
+                  <Link href={item.href} className="inline-flex min-h-12 min-w-12 items-center underline-offset-4 hover:underline">
                     {item.label}
                   </Link>
                   <ChevronRight size={16} aria-hidden="true" className="opacity-60" />

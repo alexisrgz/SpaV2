@@ -44,7 +44,7 @@ export function WhySavia({ copy, image }: WhySaviaProps) {
             shape="arch"
             ratio="auto"
             sizes="(min-width: 1024px) 40vw, 92vw"
-            className="aspect-square sm:aspect-[5/4] lg:aspect-[4/5]"
+            className="aspect-square sm:aspect-[16/10] lg:aspect-[4/5]"
             frameClassName="shadow-lift"
             mediaClassName="parallax-media"
           />

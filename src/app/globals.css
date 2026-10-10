@@ -16,7 +16,6 @@
   --brand-tinta-suave: #4a4d44;
   --brand-arcilla: #a4543a; /* acento EXCLUSIVO de reservar */
   --brand-arcilla-hover: #8c4530;
-  --brand-arcilla-ink: #924a32; /* arcilla para texto sobre crema (4.9:1) */
   --brand-linea: #d8ccb9;
 
   --header-h: 4rem;
@@ -60,9 +59,9 @@
   --color-ink-soft: var(--brand-tinta-suave);
   --color-book: var(--brand-arcilla);
   --color-book-hover: var(--brand-arcilla-hover);
-  --color-book-ink: var(--brand-arcilla-ink);
   --color-line: var(--brand-linea);
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-display-italic: var(--font-fraunces-italic), var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 
   /* Escala fluida 390 → 1440 px */
@@ -93,9 +92,7 @@
   --shadow-book: 0 2px 4px rgb(120 50 28 / 0.18), 0 12px 24px -12px rgb(120 50 28 / 0.45);
 
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
-  --breakpoint-xs: 22.5rem;
 }
 
 /* ==========================================================================
@@ -154,12 +151,14 @@
     font-optical-sizing: auto;
     font-variation-settings: "SOFT" 60;
     text-wrap: balance;
+    overflow-wrap: break-word;
   }
 
   h1 em,
   h2 em,
   h3 em,
   .font-display em {
+    font-family: var(--font-display-italic);
     font-style: italic;
     color: var(--tone-em);
     font-variation-settings: "SOFT" 100;
@@ -419,9 +418,6 @@
   .arch {
     border-radius: 50cqi 50cqi var(--radius-card) var(--radius-card);
   }
-  .arch-full {
-    border-radius: 50cqi 50cqi 50cqi 50cqi / 50cqi 50cqi 50cqi 50cqi;
-  }
 
   /* Zoom perceptible de imagen solo en dispositivos con hover */
   .zoom-media {
@@ -490,6 +486,11 @@
       animation: rise-in 1000ms var(--ease-out-soft) both;
       animation-delay: calc(200ms + var(--i, 0) * 110ms);
     }
+    /* El título (LCP) se pinta desde el primer frame: solo se desplaza. */
+    .hero-stagger > h1 {
+      animation-name: settle-in;
+      animation-delay: 0ms;
+    }
   }
 
   @keyframes arch-open {
@@ -498,6 +499,14 @@
     }
     to {
       clip-path: inset(0 0 0 0 round 50cqi 50cqi var(--radius-card) var(--radius-card));
+    }
+  }
+  @keyframes settle-in {
+    from {
+      translate: 0 0.75rem;
+    }
+    to {
+      translate: 0 0;
     }
   }
   @keyframes media-settle {
@@ -634,4 +643,10 @@
   .pad-bottom-bar {
     padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom) + 1.5rem);
   }
+}
+
+/* Cursiva real (no sintética) en utilidades "font-display italic". Sin capa para
+   ganarle a la utilidad font-display. */
+.font-display.italic {
+  font-family: var(--font-display-italic);
 }

@@ -9,7 +9,7 @@ import { useBookingSelection } from "@/lib/booking-selection";
 import { cn } from "@/lib/format";
 import { BookingLink } from "@/components/ui/booking-link";
 
-/** Elementos que ocultan la barra mientras están en pantalla (hero, encabezado de página, footer). */
+/** Elementos que ocultan la barra mientras están en pantalla: hero/encabezado y footer ("end"). */
 const HIDE_SELECTOR = "[data-hide-booking-bar]";
 
 /**
@@ -23,21 +23,25 @@ export function MobileBookingBar() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const targets = Array.from(document.querySelectorAll(HIDE_SELECTOR));
     const onScreen = new Set<Element>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) onScreen.add(entry.target);
-          else onScreen.delete(entry.target);
-        }
-        setVisible(onScreen.size === 0);
-      },
-      // El footer cuenta un poco antes de entrar: la barra se va antes de taparlo.
-      { rootMargin: "0px 0px 64px 0px" },
-    );
-    targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
+    const update = (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) onScreen.add(entry.target);
+        else onScreen.delete(entry.target);
+      }
+      setVisible(onScreen.size === 0);
+    };
+    // Hero / encabezado: deja de contar cuando su borde inferior sube del 35 % superior.
+    const top = new IntersectionObserver(update, { rootMargin: "-35% 0px 0px 0px" });
+    // Footer: cuenta un poco antes de entrar, para que la barra nunca lo tape.
+    const end = new IntersectionObserver(update, { rootMargin: "0px 0px 64px 0px" });
+    document.querySelectorAll(HIDE_SELECTOR).forEach((el) => {
+      (el.getAttribute("data-hide-booking-bar") === "end" ? end : top).observe(el);
+    });
+    return () => {
+      top.disconnect();
+      end.disconnect();
+    };
   }, [pathname]);
 
   return (

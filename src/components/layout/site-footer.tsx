@@ -11,9 +11,9 @@ import { Wordmark } from "@/components/ui/wordmark";
 
 export function SiteFooter() {
   return (
-    <footer className="tone-inverse-deep pad-bottom-bar relative overflow-hidden" data-hide-booking-bar>
-      <div className="container-site grid gap-12 pt-16 pb-10 lg:grid-cols-12 lg:gap-10 lg:pt-24">
-        <div className="flex flex-col items-start gap-6 lg:col-span-4">
+    <footer className="tone-inverse-deep pad-bottom-bar relative overflow-hidden" data-hide-booking-bar="end">
+      <div className="container-site grid gap-12 pt-16 pb-10 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:gap-10 lg:pt-24">
+        <div className="flex flex-col items-start gap-6 md:col-span-2 lg:col-span-4">
           <Link href="/" className="inline-flex min-h-12 items-center" aria-label={`${site.name}, ir al inicio`}>
             <Wordmark size="lg" />
           </Link>
@@ -26,7 +26,7 @@ export function SiteFooter() {
           <ul className="grid grid-cols-2 gap-x-6 lg:grid-cols-1">
             {site.nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="inline-flex min-h-12 items-center hover:underline">
+                <Link href={item.href} className="inline-flex min-h-12 min-w-12 items-center hover:underline">
                   {item.label}
                 </Link>
               </li>
@@ -92,13 +92,12 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Firma tipográfica gigante, recortada por el borde inferior */}
-      <p
+      {/* Firma tipográfica gigante (pseudo-elemento: decorativa, fuera del árbol accesible) */}
+      <div
         aria-hidden="true"
-        className="pointer-events-none -mb-[0.32em] text-center font-display text-[clamp(6rem,27vw,23rem)] leading-[0.8] tracking-[0.06em] text-[color-mix(in_oklab,var(--brand-marfil)_7%,var(--brand-bosque-deep))] uppercase select-none [font-variation-settings:'SOFT'_100] max-w-none"
-      >
-        {site.wordmark}
-      </p>
+        data-word={site.wordmark}
+        className="pointer-events-none -mb-[0.32em] text-center font-display text-[clamp(6rem,27vw,23rem)] leading-[0.8] tracking-[0.06em] text-[color-mix(in_oklab,var(--brand-marfil)_7%,var(--brand-bosque-deep))] uppercase select-none [font-variation-settings:'SOFT'_100] before:content-[attr(data-word)]"
+      />
     </footer>
   );
 }

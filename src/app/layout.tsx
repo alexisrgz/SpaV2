@@ -8,12 +8,24 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import "./globals.css";
 
+// Display: opsz + SOFT (el eje SOFT da el carácter cálido de los titulares).
 const fraunces = Fraunces({
   subsets: ["latin"],
   axes: ["opsz", "SOFT"],
-  style: ["normal", "italic"],
+  style: "normal",
   variable: "--font-fraunces",
   display: "swap",
+});
+
+// La cursiva solo marca palabras de énfasis: se carga aparte, sin precarga y
+// sin el eje SOFT (casi duplica el archivo: 82 KB → 149 KB).
+const frauncesItalic = Fraunces({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  style: "italic",
+  variable: "--font-fraunces-italic",
+  display: "swap",
+  preload: false,
 });
 
 const manrope = Manrope({
@@ -45,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-MX" className={`${fraunces.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="es-MX" className={`${fraunces.variable} ${frauncesItalic.variable} ${manrope.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>

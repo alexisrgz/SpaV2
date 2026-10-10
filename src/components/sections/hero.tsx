@@ -74,7 +74,7 @@ export function Hero({ copy }: HeroProps) {
           <p className="text-lead max-w-[46ch] text-muted" style={stagger(1)}>
             {copy.subtitle}
           </p>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-3" style={stagger(2)}>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-6" style={stagger(2)}>
             <BookingLink>{copy.primaryCta}</BookingLink>
             <Link href={copy.secondaryCta.href} className="link-arrow">
               {copy.secondaryCta.label}

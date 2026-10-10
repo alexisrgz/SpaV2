@@ -20,16 +20,16 @@ export default function AboutPage() {
 
       {/* Historia */}
       <section aria-label={plainText(copy.title)} className="tone-canvas pb-18 lg:pb-30">
-        <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <div className="container-site grid gap-10 md:grid-cols-12 md:items-center lg:gap-16">
           <Photo
             id="about"
             shape="arch"
             ratio="4/5"
-            sizes="(min-width: 1024px) 460px, 92vw"
-            className="lg:col-span-5"
+            sizes="(min-width: 1024px) 460px, (min-width: 768px) 40vw, 92vw"
+            className="md:col-span-5"
             frameClassName="shadow-lift"
           />
-          <div className="grid gap-6 text-lead lg:col-span-6 lg:col-start-7" data-reveal>
+          <div className="grid gap-6 text-lead md:col-span-7 lg:col-span-6 lg:col-start-7" data-reveal>
             {copy.story.map((paragraph, i) => (
               <p key={i} className={i === 0 ? "font-display text-[1.5rem] leading-[1.4] lg:text-[1.875rem]" : "text-muted"}>
                 {paragraph}
@@ -68,13 +68,13 @@ export default function AboutPage() {
             </h2>
             <p className="text-muted lg:col-span-5">{copy.teamIntro}</p>
           </div>
-          <ul className="mt-12 grid gap-14 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-8">
+          <ul className="mt-12 grid gap-14 sm:grid-cols-2 md:grid-cols-3 md:gap-6 lg:mt-16 lg:gap-8">
             {team.map((member, i) => (
               <li key={member.name} data-reveal style={{ "--reveal-i": i } as CSSProperties}>
                 <Photo
                   id={member.image}
                   shape="arch"
-                  sizes="(min-width: 1024px) 380px, (min-width: 640px) 46vw, 92vw"
+                  sizes="(min-width: 1024px) 380px, (min-width: 768px) 31vw, (min-width: 640px) 46vw, 92vw"
                   frameClassName="shadow-soft"
                 />
                 <h3 className="mt-6 text-h3">{member.name}</h3>
@@ -97,13 +97,13 @@ export default function AboutPage() {
             <p className="text-muted lg:col-span-5">{copy.spaceIntro}</p>
           </div>
           {/* Columnas proporcionales a cada foto (0.8 : 1.5 : 1.5) = misma altura en desktop */}
-          <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 lg:mt-16 lg:grid-cols-[8fr_15fr_15fr]" data-reveal>
+          <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-[8fr_15fr_15fr] lg:mt-16" data-reveal>
             <Photo
               id="space-1"
               shape="arch"
               ratio="auto"
               sizes="(min-width: 1024px) 260px, 46vw"
-              className="row-span-2 h-full lg:row-span-1 lg:aspect-[4/5] lg:h-auto"
+              className="row-span-2 h-full md:row-span-1 md:aspect-[4/5] md:h-auto"
             />
             <Photo id="space-2" shape="rounded" sizes="(min-width: 1024px) 470px, 46vw" />
             <Photo id="space-3" shape="rounded" sizes="(min-width: 1024px) 470px, 46vw" />

@@ -70,8 +70,8 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
 
       {/* Encabezado: foto en arco + nombre + selector de duración */}
       <section data-hide-booking-bar aria-labelledby="servicio-title" className="tone-canvas">
-        <div className="container-site grid gap-8 pt-2 pb-14 lg:grid-cols-12 lg:items-center lg:gap-14 lg:pt-6 lg:pb-24">
-          <div className="lg:col-span-12">
+        <div className="container-site grid gap-8 pt-2 pb-14 md:grid-cols-12 md:items-center md:gap-10 lg:gap-14 lg:pt-6 lg:pb-24">
+          <div className="md:col-span-12">
             <Breadcrumb items={crumbs} />
           </div>
           <Photo
@@ -79,15 +79,15 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
             priority
             shape="arch"
             ratio="4/5"
-            sizes="(min-width: 1024px) 460px, 92vw"
-            className="lg:col-span-5"
+            sizes="(min-width: 1024px) 460px, (min-width: 768px) 40vw, 92vw"
+            className="md:col-span-5"
             frameClassName="hero-arch shadow-lift"
           />
-          <div className="flex flex-col gap-6 lg:col-span-7 lg:max-w-[36rem]">
+          <div className="flex flex-col gap-6 md:col-span-7 lg:max-w-[36rem]">
             <p className="label text-support-ink">
               {categoryLabel(service.category)} · <span className="tabular">{serviceDurations(service)}</span>
             </p>
-            <h1 id="servicio-title" className="-mt-2 text-h1">
+            <h1 id="servicio-title" className="-mt-2 text-h1 hyphens-auto break-words">
               {service.name}
             </h1>
             <p className="text-lead text-muted">{service.description}</p>
