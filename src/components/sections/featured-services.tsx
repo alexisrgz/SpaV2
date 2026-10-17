@@ -9,7 +9,7 @@ export function FeaturedServices({ copy, services }: { copy: SectionCopy; servic
   return (
     <section aria-labelledby="destacados-title" className="tone-canvas section-y">
       <SectionHeader copy={copy} id="destacados-title" className="container-site" />
-      <div data-reveal className="mt-10 lg:mt-14">
+      <div data-reveal suppressHydrationWarning className="mt-10 lg:mt-14">
         <Carousel
           label="Servicios destacados"
           itemClassName="w-[78%] max-w-[21rem] sm:w-[44%] md:w-[36%] lg:w-auto lg:max-w-none"

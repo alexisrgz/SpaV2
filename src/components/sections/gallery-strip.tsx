@@ -9,7 +9,7 @@ export function GalleryStrip({ copy, items }: { copy: SectionCopy; items: readon
   return (
     <section aria-labelledby="galeria-title" className="tone-canvas section-y">
       <SectionHeader copy={copy} id="galeria-title" className="container-site" />
-      <div data-reveal className="mt-10 lg:mt-14">
+      <div data-reveal suppressHydrationWarning className="mt-10 lg:mt-14">
         <Carousel
           label="Fotos de Savia Spa"
           arrows

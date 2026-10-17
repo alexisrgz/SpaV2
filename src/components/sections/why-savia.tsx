@@ -23,6 +23,7 @@ export function WhySavia({ copy, image }: WhySaviaProps) {
               <li
                 key={point.title}
                 data-reveal
+                suppressHydrationWarning
                 style={{ "--reveal-i": i } as CSSProperties}
                 className="flex gap-4 border-t border-rule py-6"
               >
@@ -38,7 +39,7 @@ export function WhySavia({ copy, image }: WhySaviaProps) {
           </ul>
         </div>
 
-        <div data-reveal className="lg:col-span-6 lg:col-start-1 lg:row-start-1">
+        <div data-reveal suppressHydrationWarning className="lg:col-span-6 lg:col-start-1 lg:row-start-1">
           <Photo
             id={image}
             shape="leafFlip"

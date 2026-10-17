@@ -58,7 +58,7 @@ export function Testimonials({ copy, items }: { copy: SectionCopy; items: readon
           </h2>
           {copy.intro && <p className="mt-5 text-muted">{copy.intro}</p>}
         </div>
-        <div data-reveal className="-mx-(--gutter) min-w-0 lg:col-span-8 lg:mx-0">
+        <div data-reveal suppressHydrationWarning className="-mx-(--gutter) min-w-0 lg:col-span-8 lg:mx-0">
           <Carousel
             label="Testimonios"
             arrows

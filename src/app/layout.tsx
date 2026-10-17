@@ -61,7 +61,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionBootScript }} />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <a
           href="#contenido"
           className="btn btn-solid fixed top-3 left-3 z-50 -translate-y-24 focus-visible:translate-y-0"

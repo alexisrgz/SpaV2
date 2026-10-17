@@ -32,7 +32,7 @@ export function FinalCta({ copy }: { copy: typeof home.finalCta }) {
           <BookingLink className="mt-2">{copy.cta}</BookingLink>
         </div>
 
-        <div data-reveal className="rounded-card border border-rule p-6 lg:col-span-5 lg:p-8">
+        <div data-reveal suppressHydrationWarning className="rounded-card border border-rule p-6 lg:col-span-5 lg:p-8">
           <OpenStatus />
           <a
             href={getDirectionsHref()}

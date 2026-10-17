@@ -99,14 +99,14 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
       <div className="tone-surface section-y">
         <div className="container-site grid gap-16 lg:grid-cols-12 lg:gap-14">
           <div className="grid gap-16 lg:col-span-7 lg:gap-20">
-            <section aria-labelledby="incluye-title" data-reveal>
+            <section aria-labelledby="incluye-title" data-reveal suppressHydrationWarning>
               <h2 id="incluye-title" className="text-h2">{serviceDetail.includesTitle}</h2>
               <div className="mt-8">
                 <CheckList items={service.includes} />
               </div>
             </section>
 
-            <div className="grid gap-12 md:grid-cols-2 md:gap-10" data-reveal>
+            <div className="grid gap-12 md:grid-cols-2 md:gap-10" data-reveal suppressHydrationWarning>
               <section aria-labelledby="beneficios-title">
                 <h2 id="beneficios-title" className="text-h3">{serviceDetail.benefitsTitle}</h2>
                 <ul className="mt-5 grid gap-3 border-t border-rule pt-5">
@@ -125,7 +125,7 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
               </section>
             </div>
 
-            <section aria-labelledby="sesion-title" data-reveal>
+            <section aria-labelledby="sesion-title" data-reveal suppressHydrationWarning>
               <h2 id="sesion-title" className="text-h2">{serviceDetail.stepsTitle}</h2>
               <ol className="relative mt-10 grid gap-8 before:absolute before:top-2 before:bottom-2 before:left-[1.4375rem] before:w-px before:bg-(--tone-rule)">
                 {service.steps.map((step, i) => (
@@ -142,7 +142,7 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
               </ol>
             </section>
 
-            <aside aria-labelledby="precauciones-title" className="flex gap-4 rounded-card bg-canvas p-6 shadow-soft lg:p-8" data-reveal>
+            <aside aria-labelledby="precauciones-title" className="flex gap-4 rounded-card bg-canvas p-6 shadow-soft lg:p-8" data-reveal suppressHydrationWarning>
               <ShieldCheck size={26} strokeWidth={1.6} aria-hidden="true" className="flex-none text-support-ink" />
               <div>
                 <h2 id="precauciones-title" className="font-sans text-[1.0625rem] font-bold">{serviceDetail.precautionsTitle}</h2>
@@ -150,7 +150,7 @@ export default async function ServiceDetailPage({ params }: PageProps<"/servicio
               </div>
             </aside>
 
-            <section aria-labelledby="faq-servicio-title" data-reveal>
+            <section aria-labelledby="faq-servicio-title" data-reveal suppressHydrationWarning>
               <h2 id="faq-servicio-title" className="text-h2">{serviceDetail.faqTitle}</h2>
               <Accordion items={service.faqs} className="mt-8" />
             </section>

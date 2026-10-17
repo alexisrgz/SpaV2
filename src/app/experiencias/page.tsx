@@ -58,6 +58,7 @@ export default function ExperiencesPage() {
                 aria-labelledby={`${pkg.slug}-title`}
                 className="grid scroll-mt-28 gap-8 lg:grid-cols-12 lg:items-center lg:gap-14"
                 data-reveal
+                suppressHydrationWarning
               >
                 <Photo
                   id={pkg.image}

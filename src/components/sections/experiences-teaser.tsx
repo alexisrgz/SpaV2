@@ -39,6 +39,7 @@ function PackageTeaser({ pkg, size, className }: { pkg: Package; size: "lead" | 
   return (
     <article
       data-reveal
+      suppressHydrationWarning
       className={cn("group relative grid gap-5", isRow && "sm:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] sm:items-center sm:gap-7", className)}
     >
       <Photo
